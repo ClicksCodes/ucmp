@@ -1,0 +1,22 @@
+embedded messages:
+
+{embed: {
+    title:"Perms",
+    color:setup.warn,
+    description:"We can see you trying this you know"
+}
+
+---------------------------------------------------------
+
+perm checks:
+
+if (!message.member.roles.cache.has(roles.Helper||roles.Moderator||roles.Admin||roles.Developer)) { }
+
+---------------------------------------------------------
+
+logger:
+client.channels.cache.get(setup.modLogs).send({embed: {
+        title:"",
+        color:setup.info,
+        description:`${message.member} has `
+}});

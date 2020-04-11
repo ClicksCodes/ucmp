@@ -1,0 +1,110 @@
+{
+    "ban": {
+        "name":"Ban",
+        "description":"Ban user",
+        "usage":"cmp ban @user [reason]",
+        "perms":"Admin+"
+    },
+    "help": {
+        "name":"Help",
+        "description":"Shows this message",
+        "usage":"cmp help",
+        "perms":"members+"
+    },
+    "kick": {
+        "name":"Kick",
+        "description":"Kicks a user",
+        "usage":"cmp kick @user [reason]",
+        "perms":"Moderator+"
+    },
+    "merch": {
+        "name":"Merch",
+        "description":"Puts an embed with our merch page",
+        "usage":"cmp merch",
+        "perms":"members+"
+    },
+    "mute": {
+        "name":"Mute",
+        "description":"Mutes a user",
+        "usage":"cmp mute @user",
+        "perms":"Helper+"
+    },
+    "nick": {
+        "name":"Nick",
+        "description":"Nick(name)s a user",
+        "usage":"cmp nick @user",
+        "perms":"Helper+"
+    },
+    "ping": {
+        "name":"Ping",
+        "description":"Checks the bots ping",
+        "usage":"cmp ping",
+        "perms":"members+"
+    },
+    "purge": {
+        "name":"Purge",
+        "description":"Purge x amount of messages from a channel",
+        "usage":"cmp purge {count}",
+        "perms":"Moderator+"
+    },
+    "reload": {
+        "name":"Reload",
+        "description":"reloads a command",
+        "usage":"cmp reload {command}",
+        "perms":"Developer"
+    },
+    "seq": {
+        "name":"Sequelize",
+        "usage":"cmp seq {subcommand}",
+        "sub_cmds": {
+            "init": {
+                "name":"Init",
+                "description":"Syncs files with database.sqlite",
+                "usage":"cmp seq init",
+                "perms":"Moderator+"
+            },
+            "add": {
+                "name":"Add",
+                "description":"Syncs files with database.sqlite",
+                "usage":"cmp seq init",
+                "perms":"Moderator+"
+            },
+            "fetch": {
+                "name":"Fetch",
+                "description":"Syncs files with database.sqlite",
+                "usage":"cmp seq init",
+                "perms":"Helper+"
+            },
+            "specific": {
+                "name":"Specific",
+                "description":"Syncs files with database.sqlite",
+                "usage":"cmp seq init",
+                "perms":"Helper+"
+            },
+            "delete": {
+                "name":"Delete",
+                "description":"Syncs files with database.sqlite",
+                "usage":"cmp seq init",
+                "perms":"Developer"
+            }
+        }
+    },
+    "shut": {
+        "name":"Shut",
+        "description":"Shut",
+        "usage":"cmp shut",
+        "perms":"members+"
+    },
+    "verify": {
+        "name":"Verify",
+        "description":"Verify yourself",
+        "usage":"cmp verify",
+        "perms":"everyone"
+    },
+    "warn": {
+        "name":"warn",
+        "description":"Warns a user",
+        "usage":"cmp warn @user [reason]",
+        "perms":"Helper+"
+    }
+}
