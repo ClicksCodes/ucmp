@@ -32,9 +32,3 @@ exports.run = (client, message, [mention, ...reason], err) => {
     }});
 
 };
-exports.help = {
-  warname:"Warn",
-  wardescription:"Warns a user",
-  warusage:"cmp warn @user",
-  warperms:"Helepr+"
-};

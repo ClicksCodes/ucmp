@@ -31,10 +31,3 @@ exports.run = (client, message, args) => {
         description:`${message.member} has purged ${message.channel} of ${count} messages`
     }})
 };
-
-exports.help = {
-  purname:"Purge",
-  purdescription:"Purge x messages in the current channel",
-  purusage:"cmp purge x",
-  purperms:"Moderator and up"
-};

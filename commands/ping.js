@@ -10,9 +10,3 @@ exports.run = (client, message, args) => {
     }});
 };
 
-exports.help = {
-    pinname:"Ping",
-    pindescription:"checks the bots ping",
-    pinusage:"cmp ping",
-    pinperms:"members+"
-}

@@ -38,9 +38,3 @@ exports.run = (client, message, [mention, ...nickname]) => {
         description:`${message.member} has nicked ${nickMember} to ${nickname.join(" ")}`
     }});
 };
-exports.help = {
-  nicname:"Nick",
-  nicdescription:"Nick's a user",
-  nicusage:"cmp nick @user",
-  nicperms:"Helper+"
-};

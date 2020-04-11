@@ -76,7 +76,7 @@ exports.run = async (client, message, [sub,mention,w,m,k,b]) => {
             return message.channel.send({embed: {
                 title:"Added",
                 color:setup.success,
-                description:`Added ${checkUser} to the log with ${w} warns, ${m} mutes, ${k} kicks, and ${b} bans`
+                description:`Added ${tag.name} to the log with ${w} warns, ${m} mutes, ${k} kicks, and ${b} bans`
             }});
         }
         catch(e) {

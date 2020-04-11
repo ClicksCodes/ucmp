@@ -18,10 +18,3 @@ exports.run = (client, message, args) => {
         }});
     }
 };
-
-exports.help = {
-  vername:"verify",
-  verdescription:"Verify yourself",
-  verusage:"cmp verify",
-  verperms:"everyone"
-};
