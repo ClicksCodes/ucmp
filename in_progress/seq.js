@@ -5,83 +5,78 @@ const sequelize = new Sequelize('database','user','password', {
     host: 'localhost',
     dialect: 'sqlite',
     logging:false,
-    storage:'database.sqlite',
+    storage:'audit.sqlite',
 });
 
-const Tags = sequelize.define('tags', {
-  name: {
-    type: Sequelize.STRING,
-    unique:true,
-  },
-  warns: {
-    type: Sequelize.INTEGER,
-    defaultValue: 0,
-    allowNull: false,
-  },
-  mutes: {
-    type: Sequelize.INTEGER,
-    defaultValue:0,
-    allowNull: false,
-  },
-  kicks: {
-    type: Sequelize.INTEGER,
-    defaultValue:0,
-    allowNull: false,
-  },
-  bans: {
-    type: Sequelize.INTEGER,
-    defaultValue:0,
-    allowNull: false,
-  },
-  usage_count: {
-    type: Sequelize.INTEGER,
-    defaultValue:0,
-    allowNull: false,
-  }
-});
+exports.run = async (client, message, [sub,mention,w,m,k,b]) => { 
 
-exports.run = (client, message, [sub,mention,w,m,k,b]) => {
+    const Tags = sequelize.define('tags', {
+        name: {
+          type: Sequelize.STRING,
+          unique:true,
+        },
+        warns: {
+          type: Sequelize.INTEGER,
+          defaultValue: 0,
+          allowNull: false,
+        },
+        mutes: {
+          type: Sequelize.INTEGER,
+          defaultValue:0,
+          allowNull: false,
+        },
+        kicks: {
+          type: Sequelize.INTEGER,
+          defaultValue:0,
+          allowNull: false,
+        },
+        bans: {
+          type: Sequelize.INTEGER,
+          defaultValue:0,
+          allowNull: false,
+        },
+      });
 
     const checkUser = message.mentions.members.first();
 
     if(sub==="init") {
 
-        if (!message.member.roles.cache.has(roles.Moderator)) { 
+        if (!message.member.roles.cache.has(roles.Moderator)) {
             return message.channel.send({embed:{
                 title:"Perms...",
                 color:setup.warn,
                 description:`This won't work for you ${message.member}!`
             }});
-        };
+        }
 
         Tags.sync();
-        message.channel.send({embed:{
+        return message.channel.send({embed:{
             title:"Syncing...",
             color:setup.info,
             description:"Syncing with Logs"
         }});
-    };
+    }
     if(sub==="add") {
-        if (!message.member.roles.cache.has(roles.Moderator)) { 
+        if (!message.member.roles.cache.has(roles.Moderator)) {
             return message.channel.send({embed:{
                 title:"Perms...",
                 color:setup.warn,
                 description:`This won't work for you ${message.member}!`
             }});
-        };
+        }
         try {
             const tag = await Tags.create({
-                name:checkUser,
-                warns:w,
-                mutes:m,
-                kicks:k,
-                bans:b,
-                usage_count:0,
-            });
+                    name:checkUser,
+                    warns:w,
+                    mutes:m,
+                    kicks:k,
+                    bans:b,
+                });
+            
             return message.channel.send({embed: {
                 title:"Added",
                 color:setup.success,
-                description:`Added ${checkUser} to the log with ${w} warns, ${m} mutes, ${k} kicks, and ${b} bans`
+                description:`Added ${tag.name} to the log with ${w} warns, ${m} mutes, ${k} kicks, and ${b} bans`
             }});
         }
         catch(e) {
@@ -96,20 +91,21 @@ exports.run = (client, message, [sub,mention,w,m,k,b]) => {
                 title:"I dunno",
                 color:setup.warn,
                 description:`Something went wrong when adding ${checkUser} to the list`
-            }})
-        };
+            }});
+        }
     };
     if(sub==="fetch") {
-        if (!message.member.roles.cache.has(roles.Helper)) { 
+        if (!message.member.roles.cache.has(roles.Helper)) {
             return message.channel.send({embed:{
                 title:"Perms...",
                 color:setup.warn,
                 description:`This won't work for you ${message.member}!`
             }});
-        };
-        const tag = await Tags.findOne({where:{name:`${checkUser}`}});
+        }
+        const tag = await Tags.findOne(
+            {where:{name:`${checkUser}`}}
+        );
         if(tag) {
-            tag.increment('usage_count');
             return message.channel.send({embed:{
                 title:`${checkUser}'s stats`,
                 color:setup.info,
@@ -133,16 +129,16 @@ exports.run = (client, message, [sub,mention,w,m,k,b]) => {
                 text:`from cmp sequelize fetch ${checkUser}`
             }
             }});
-            
+
         }
         return message.channel.send({embed:{
             title:"Awwwwwwww",
             color:setup.error,
             description:`couldn't find ${checkUser}'s tag`
         }});
-    };
+    }
     if(sub==="specific"){
-        if (!message.member.roles.cache.has(roles.Helper)) { 
+        if (!message.member.roles.cache.has(roles.Helper)) {
             return message.channel.send({embed:{
                 title:"Perms...",
                 color:setup.warn,
@@ -163,9 +159,6 @@ exports.run = (client, message, [sub,mention,w,m,k,b]) => {
                 },{
                     name:"Creation Time:",
                     value:`${tag.createdAt}`,
-                },{
-                    name:"Usage",
-                    value:`Used ${tag.usage_count} times`,
                 },
                 ],
                 timestamp: new Date(),
@@ -182,14 +175,14 @@ exports.run = (client, message, [sub,mention,w,m,k,b]) => {
         }});
     };
     if(sub==="all"){
-        if (!message.member.roles.cache.has(roles.Helper)) { 
+        if (!message.member.roles.cache.has(roles.Helper)) {
             return message.channel.send({embed:{
                 title:"Perms...",
                 color:setup.warn,
                 description:`This won't work for you ${message.member}!`
             }});
         };
-        async const tagList = await Tags.findAll({attributes:['name']});
+        const tagList = await Tags.findAll({attributes:['name']});
         const tagString = tagList.map(t => t.name).join(", ") || 'No tags set.';
         return message.channel.send({embed:{
             title:"List of all current tags",
@@ -198,7 +191,7 @@ exports.run = (client, message, [sub,mention,w,m,k,b]) => {
         }});
     };
     if(sub==="delete"){
-        if (!message.member.roles.cache.has(roles.Developer)) { 
+        if (!message.member.roles.cache.has(roles.Developer)) {
             return message.channel.send({embed:{
                 title:"Perms...",
                 color:setup.warn,
@@ -218,4 +211,20 @@ exports.run = (client, message, [sub,mention,w,m,k,b]) => {
             description:`Deleted tag: ${checkUser} successfully!`
         }});
     };
+    return message.channel.send({embed:{
+      title:"List of SEQ commands:",
+      color:setup.info,
+      description:"**init:**Mod+\n**add:**Admin+\n**fetch:**Helper+\n**specific:**Helper+\n**all:**Helper+\n**delete:**Dev"
+    }})
+};
+
+exports.help = {
+  seqname:"Sequelize",
+  seqdescription:"Sequluize commands",
+  sequsage:"cmp seq {subcommand}",
+  seqinit:"Perms: Moderator+\nDescription: Initialize the sqlite database\nUsage: cmp seq init",
+  seqadd:"Perms: Admin+\nDescription: Add user to the sqlite database\nUsage: cmp seq add @user",
+  seqfetch:"Perms: Helper+\nDescription: Checks for user data in the sqlite database\nUsage: cmp seq fetch @user",
+  seqspecific:"Perms: Helper+\nDescription: Checks for specific data of a tag in the sqlite database\nUsage: cmp seq specific @user",
+  seqdelete:"Perms: Developer\nDescription: Removes **ALL** Data of a user in the sqlite database\nUsage: cmp seq delete @user"
 };

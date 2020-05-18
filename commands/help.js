@@ -43,30 +43,6 @@ exports.run = (client, message) => {
           name:`**${list.reload.name}**`,
           value:`Description: ${list.reload.description}\nUsage: ${list.reload.usage}\nPerms: ${list.reload.perms}`
         },{
-          name:`**${list.seq.name}**`,
-          value:`Usage:${list.seq.usage}\n
-          __Sub Commands:__\n
-          **${list.seq.sub_cmds.init.name}:**\n
-          Description:${list.seq.sub_cmds.init.description}\n
-          Usage:${list.seq.sub_cmds.init.usage}\n
-          Perms:${list.seq.sub_cmds.init.perms}\n
-          **${list.seq.sub_cmds.add.name}:**\n
-          Description:${list.seq.sub_cmds.add.description}\n
-          Usage:${list.seq.sub_cmds.add.usage}\n
-          Perms:${list.seq.sub_cmds.add.perms}\n
-          **${list.seq.sub_cmds.fetch.name}:**\n
-          Description:${list.seq.sub_cmds.fetch.description}\n
-          Usage:${list.seq.sub_cmds.fetch.usage}\n
-          Perms:${list.seq.sub_cmds.fetch.perms}\n
-          **${list.seq.sub_cmds.specific.name}:**\n
-          Description:${list.seq.sub_cmds.specific.description}\n
-          Usage:${list.seq.sub_cmds.specific.usage}\n
-          Perms:${list.seq.sub_cmds.specific.perms}\n
-          **${list.seq.sub_cmds.delete.name}:**\n
-          Description:${list.seq.sub_cmds.delete.description}\n
-          Usage:${list.seq.sub_cmds.delete.usage}\n
-          Perms:${list.seq.sub_cmds.delete.perms}\n`
-        },{
           name:`**${list.shut.name}**`,
           value:`Description: ${list.shut.description}\nUsage: ${list.shut.usage}\nPerms: ${list.shut.perms}`
         },{
