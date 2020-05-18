@@ -1,6 +1,6 @@
 const roles = require("../data/roles.json");
 const setup = require("../data/setup.json");
-const time = new Date();
+
 
 exports.run = (client, message, args) => {
     if(message.member.roles.cache.has(roles.member)) {
@@ -10,7 +10,8 @@ exports.run = (client, message, args) => {
             description:"You already have that role!"
         }});
     } else {
-        message.member.roles.add(roles.member);
+        const time = new Date()
+        message.member.roles.add(roles.member)
         client.channels.cache.get(setup.joinLeave).send({ embed: {
             title:"Verification",
             color:setup.info,
