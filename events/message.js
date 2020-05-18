@@ -1,12 +1,15 @@
 const config = require("../data/config.json");
 
 module.exports = async (client, message) => {
+
+    const newMSG = message.content.toLowerCase();
+
     if(message.author.bot) return;
 
-    if(message.content.indexOf(config.prefix) !== 0) return;
+    if(newMSG.indexOf(config.prefix) !== 0) return;
 
-    const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
-    const command = args.shift().toLowerCase();
+    const args = newMSG.slice(config.prefix.length).trim().split(/ +/g);
+    const command = args.shift()
 
     const cmd = client.commands.get(command);
 
